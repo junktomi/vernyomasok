@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
 
 const vezetekNevek = [
   "Kovács", "Nagy", "Szabó", "Horváth", "Kiss", "Tóth", "Varga", "Molnár", "Németh", "Farkas",
@@ -20,3 +20,20 @@ function randomVernyomas() {
   const diastole = Math.floor(Math.random() * (110 - 60 + 1)) + 60;  
   return `${systole}/${diastole}`;
 }
+
+const lista = [];
+const darab = 20;
+
+for (let i = 0; i < darab; i++) {
+  lista.push({
+    nev: randomName(),
+    vernyomas: randomVernyomas(),
+  });
+}
+
+const jsonText = JSON.stringify(lista, null, 2);
+
+const fajlUtvonal = path.join("public", "test.json");
+fs.writeFileSync(fajlUtvonal, jsonText, "utf-8");
+
+console.log("✅ test.json sikeresen létrehozva");
